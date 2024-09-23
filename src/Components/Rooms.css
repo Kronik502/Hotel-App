@@ -1,0 +1,173 @@
+.rooms-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ad720d72;
+}
+
+.room-card {
+  display: flex;
+  width: 80%;
+  margin-bottom: 30px;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s; /* Transition for scale and shadow */
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+}
+
+.room-card:hover {
+  transform: scale(1.05); /* Slight scaling on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+.room-card img {
+  width: 50%;
+  object-fit: cover;
+}
+
+.room-info {
+  padding: 20px;
+  flex: 1;
+  align-content: center;
+  background-color: #e1c37793;
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.room-info:hover {
+  background-color: #d1b75d9a; /* Slightly darker background on hover */
+}
+
+.room-info h2 {
+  margin-bottom: 10px;
+  color: #000;
+  font-size: 1.5em; /* Increased font size */
+}
+
+.room-info p {
+  margin: 5px 0;
+  color: #000;
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .room-card {
+    flex-direction: column; /* Stack image and info on smaller screens */
+    width: 90%;
+  }
+
+  .room-card img {
+    width: 100%; /* Full width for images on smaller screens */
+  }
+}
+button {
+  padding: 10px 20px; /* Add padding for a better touch area */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1em; /* Font size */
+  color: white; /* Text color */
+  background-color: #ad720d; /* Button background color */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and scaling */
+  margin: 10px; /* Spacing between buttons */
+}
+
+button:hover {
+  background-color: #9b5b0a; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight scaling on hover */
+}
+
+button:focus {
+  outline: none; /* Remove default outline on focus */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a shadow on focus for accessibility */
+}
+/* Modal styling */
+.filter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-content {
+  background-color: #a28759; /* White background to match .room-card */
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Match .room-card shadow */
+}
+
+.filter-content h2 {
+  margin-bottom: 20px;
+  color: #000; /* Black text color like in .room-info */
+}
+
+.filter-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-content label {
+  margin-bottom: 5px;
+  color: #000; /* Black text to align with room-info styling */
+}
+
+.filter-content select,
+.filter-content input {
+  margin-bottom: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #ffffff9a; /* Similar to .room-info background color */
+  color: #000; /* Text color black */
+}
+
+.filter-content .apply-filters,
+.filter-content .close-modal {
+  background-color: #ad720d; /* Same as button background color */
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+.filter-content .close-modal {
+  background-color: #f44336; /* Keeping red for the close button */
+}
+
+.filter-content .apply-filters:hover {
+  background-color: #9b5b0a; /* Same hover color as button */
+  transform: scale(1.05); /* Slight scaling on hover */
+}
+
+.filter-content .close-modal:hover {
+  background-color: #d32f2f; /* Slightly darker red on hover */
+  transform: scale(1.05);
+}
+
+.filter-content .apply-filters:focus,
+.filter-content .close-modal:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Accessibility shadow */
+}

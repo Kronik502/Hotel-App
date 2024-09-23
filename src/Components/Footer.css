@@ -1,0 +1,138 @@
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* Spread out the sections */
+  align-items: center; /* Vertically center the items */
+  padding: px;
+  border-bottom: 2px solid #444;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align the form to the right */
+  text-align: right; /* Right-align the text inside the form */
+}
+
+.contact-form h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #f39c12;
+}
+
+.email-input, .queries-input {
+  width: 100%;
+  max-width: 400px; /* Limit form width */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.queries-input {
+  height: 10px;
+}
+
+.submit-btn {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #e67e22;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Make sure it stays centered */
+}
+
+.social-icons a {
+  color: white;
+  font-size: 30px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #f39c12;
+  transform: scale(1.1);
+}
+
+.personal-info {
+  text-align: center; /* Left-align the CEO info */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align to the left */
+  margin-right: 50px;
+}
+
+.ceo-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.ceo-name{
+  margin: 0;
+  font-size: 16px;
+  align-content: center;
+  margin-right: 50px;
+} 
+.ceo-title {
+  margin: 0;
+  font-size: 16px;
+  align-content: center;
+  margin-left: 40px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background-color: #222;
+  font-size: 14px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .email-input, .queries-input {
+    width: 90%;
+  }
+
+  .social-icons, .contact-form, .personal-info {
+    margin-bottom: 10px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .contact-form {
+    align-items: center;
+  }
+
+  .personal-info {
+    align-items: center;
+  }
+}

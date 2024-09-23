@@ -1,0 +1,125 @@
+/* General Hero Section Styles */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./background2.jpg') center/cover no-repeat;
+  color: white;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Section Styles */
+.section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  background-color: rgba(70, 63, 63, 0.8); /* Transparent background */
+  border-radius: 15px;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.section-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-image img {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.section-image img:hover {
+  transform: scale(1.05);
+}
+
+.section-content {
+  flex: 2;
+  padding: 20px;
+}
+
+.section h3 {
+  color: #f39c12;
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-family: 'Lora', serif; /* Example font family */
+  animation: slideInLeft 1s ease-in-out;
+}
+
+.section p, .section ul {
+  font-size: 18px;
+  color: #eee;
+  line-height: 1.8;
+  font-family: 'Roboto', sans-serif; /* Example font family */
+}
+
+.section ul {
+  list-style: none;
+  padding: 0;
+  color: #ddd;
+}
+
+.section li {
+  font-size: 18px;
+  padding: 5px 0;
+}
+
+/* Alternating Alignments */
+.right {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.left {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    text-align: center;
+    box-shadow: none;
+  }
+
+  .section-content, .section-image {
+    margin-bottom: 20px;
+  }
+
+  .section-image img {
+    max-width: 90%;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
