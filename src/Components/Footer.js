@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Footer.css';
+import '../styles/Footer.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Footer() {
@@ -43,7 +43,7 @@ function Footer() {
         </div>
 
         <div className="personal-info">
-          <img src={require('../Components/ceo.jpg')} alt="CEO" className="ceo-image" />
+          <img src={require('../images/ceo.jpg')} alt="CEO" className="ceo-image" />
           <p className="ceo-title">CEO</p>
           <p className="ceo-name">Kgabo Kwenaite</p>
 

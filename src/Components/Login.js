@@ -1,86 +1,56 @@
+// src/Components/Login.js
 import React, { useState } from 'react';
-import './Signup.css';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, setError } from '../redux/slices/userSlice';
+import '../styles/Signup.css';
 
 const Login = () => {
-  // 1. State to handle login input and errors
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [loginMessage, setLoginMessage] = useState('');
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  // 2. Handle input change
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // 3. Validate form input
-  const validate = () => {
-    let tempErrors = {};
-    if (!formData.email) tempErrors.email = 'Email is required';
-    if (!formData.password) tempErrors.password = 'Password is required';
-
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
-  };
-
-  // 4. Submit login data
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validate()) {
-      try {
-        // Simulate API call for login
-        // Example: await loginUser(formData);
-
-        setLoginMessage('Login successful!');
-      } catch (error) {
-        setErrors({ apiError: 'Login failed, please try again' });
-      }
+  const handleLogin = () => {
+    if (email === 'test@example.com' && password === 'password123') {
+      dispatch(loginSuccess({ email, name: 'Test User' })); // Dispatch success on valid login
+    } else {
+      dispatch(setError('Invalid login credentials')); // Dispatch error on invalid login
     }
   };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-
-      {/* Success message */}
-      {loginMessage && <div className="login-message">{loginMessage}</div>}
-
-      <form onSubmit={handleSubmit} className="login-form">
-        {/* Email Field */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+      >
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label>Email</label>
           <input
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? 'error' : ''}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
-
-        {/* Password Field */}
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label>Password</label>
           <input
             type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className={errors.password ? 'error' : ''}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          {errors.password && <span className="error-text">{errors.password}</span>}
         </div>
-
-        {/* API Error */}
-        {errors.apiError && <div className="error-text">{errors.apiError}</div>}
-
-        {/* Submit Button */}
         <button type="submit" className="submit-btn">
           Login
         </button>
+        <div className="login-link">
+          Don't have account yet? <Link to="/signup">Sign Up</Link>
+        </div>
       </form>
     </div>
   );

@@ -1,22 +1,31 @@
 // src/components/Hero.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Hero.css';
 import foodImage from '../images/Food.jpg';
 import gamingImage from '../images/Games.jpg';
 import fitnessImage from '../images/Gym.jpg';
 import chefImage from '../images/Chef.jpg';
 
-const Section = ({ image, alt, title, children, align }) => (
-  <div className={`section ${align}`}>
-    <div className="section-content">
-      {title && <h3>{title}</h3>}
-      {children}
+const Section = ({ image, alt, title, children, align, roomId }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/room-details/${roomId}`);
+  };
+
+  return (
+    <div className={`section ${align}`} onClick={handleClick}>
+      <div className="section-content">
+        {title && <h3>{title}</h3>}
+        {children}
+      </div>
+      <div className="section-image">
+        <img src={image} alt={alt} />
+      </div>
     </div>
-    <div className="section-image">
-      <img src={image} alt={alt} />
-    </div>
-  </div>
-);
+  );
+};
 
 function Hero() {
   return (
@@ -31,16 +40,14 @@ function Hero() {
         </p>
       </div>
 
-      <Section image={foodImage} alt="Delicious Food" title = 'Enjoy Every Deluxe Moment With Us:'align="right">
-        
+      <Section image={foodImage} alt="Delicious Food" title='Enjoy Every Deluxe Moment With Us:' align="right" roomId={1}>
         <p>
           Our commitment is to serve the finest and most exquisite meals at the hotel, where each 
           plate is a culinary masterpiece, offering you an unparalleled dining experience.
         </p>
       </Section>
 
-      <Section image={gamingImage} alt="Gaming" title="Deluxe Gaming For Your Kids:" align="left">
-        
+      <Section image={gamingImage} alt="Gaming" title="Deluxe Gaming For Your Kids:" align="left" roomId={2}>
         <ul>
           <li>PlayStation 4 & 5</li>
           <li>Family board games</li>
@@ -49,14 +56,14 @@ function Hero() {
         </ul>
       </Section>
 
-      <Section image={chefImage} alt="Chef" title='Deluxe Food From Deluxe Chefs' align="right">
+      <Section image={chefImage} alt="Chef" title='Deluxe Food From Deluxe Chefs' align="right" roomId={3}>
         <p>
           We're delighted to have a team of world-class chefs ready to create unforgettable meals, 
           ensuring that every bite is a delight.
         </p>
       </Section>
 
-      <Section image={fitnessImage} alt="Fitness Center" title='Get The Deluxe Body You Are Wishing For' align="left">
+      <Section image={fitnessImage} alt="Fitness Center" title='Get The Deluxe Body You Are Wishing For' align="left" roomId={4}>
         <p>
           We're here to elevate your fitness game with tailored workouts and expert support, 
           pushing you to reach your goals and redefine your limits.

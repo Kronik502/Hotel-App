@@ -1,62 +1,69 @@
+// src/Components/Signup.js
 import React, { useState } from 'react';
-import'./Signup.css'
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { registerSuccess } from '../redux/slices/userSlice';
+import '../styles/Signup.css';
+import { useDispatch } from 'react-redux';
+
 const Signup = () => {
-  // 1. State to handle user inputs and errors
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  // 2. Handle input changes
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value,
     });
   };
 
-  // 3. Validate form input
   const validate = () => {
-    let tempErrors = {};
-    if (!formData.username) tempErrors.username = 'Username is required';
-    if (!formData.email) tempErrors.email = 'Email is required';
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) tempErrors.email = 'Invalid email address';
-    if (formData.password.length < 6) tempErrors.password = 'Password must be at least 6 characters';
-    if (formData.password !== formData.confirmPassword) tempErrors.confirmPassword = 'Passwords do not match';
-
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
+    const errors = {};
+    if (!formData.username) errors.username = 'Username is required';
+    if (!formData.email) errors.email = 'Email is required';
+    if (!formData.password) errors.password = 'Password is required';
+    if (formData.password !== formData.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+    return errors;
   };
 
-  // 4. Submit form data
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      try {
-        // Simulate API call to register user
-        // Example: await createUser(formData);
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      // Dispatch success action (this would be your actual signup API logic)
+      dispatch(registerSuccess(formData));
+      setSuccessMessage('Sign-up successful!');
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+      setErrors({});
 
-        setSuccessMessage('Signup successful!');
-        setFormData({ username: '', email: '', password: '', confirmPassword: '' });
-      } catch (error) {
-        setErrors({ apiError: 'Signup failed, please try again' });
-      }
+      // Navigate to personal details page
+      navigate('/personal-details');
     }
   };
 
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
-
-      {/* 5. Success message */}
       {successMessage && <div className="success-message">{successMessage}</div>}
 
       <form onSubmit={handleSubmit} className="signup-form">
-        {/* Username Field */}
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -69,7 +76,6 @@ const Signup = () => {
           {errors.username && <span className="error-text">{errors.username}</span>}
         </div>
 
-        {/* Email Field */}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -82,7 +88,6 @@ const Signup = () => {
           {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
 
-        {/* Password Field */}
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
@@ -95,7 +100,6 @@ const Signup = () => {
           {errors.password && <span className="error-text">{errors.password}</span>}
         </div>
 
-        {/* Confirm Password Field */}
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
@@ -105,16 +109,19 @@ const Signup = () => {
             onChange={handleChange}
             className={errors.confirmPassword ? 'error' : ''}
           />
-          {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
+          {errors.confirmPassword && (
+            <span className="error-text">{errors.confirmPassword}</span>
+          )}
         </div>
 
-        {/* API Error */}
         {errors.apiError && <div className="error-text">{errors.apiError}</div>}
 
-        {/* Submit Button */}
         <button type="submit" className="submit-btn">
           Sign Up
         </button>
+        <div className="login-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </div>
       </form>
     </div>
   );
