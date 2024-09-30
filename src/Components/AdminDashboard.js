@@ -1,15 +1,18 @@
-// src/Components/AdminDashboard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
-      <h2>Admin Dashboard</h2>
-      <div className="dashboard-links">
-        <Link to="/admin/rooms">Manage Rooms</Link>
-        <Link to="/admin/bookings">View Bookings</Link>
-      </div>
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <ul>
+          <li><Link to="/admin/managerooms">Manage Rooms</Link></li>
+          <li><Link to="/admin/viewbookings">View Bookings</Link></li>
+          <li><Link to="/admin/manageusers">Manage Users</Link></li>
+        </ul>
+      </nav>
     </div>
   );
 };

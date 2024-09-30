@@ -1,13 +1,14 @@
-// src/Components/Signup.js
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import { registerSuccess } from '../redux/slices/userSlice';
+import { auth } from '../firebase'; // Import Firebase Auth
+import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the function to create a user
 import '../styles/Signup.css';
 import { useDispatch } from 'react-redux';
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -16,6 +17,7 @@ const Signup = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [apiError, setApiError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,25 +38,41 @@ const Signup = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Dispatch success action (this would be your actual signup API logic)
-      dispatch(registerSuccess(formData));
-      setSuccessMessage('Sign-up successful!');
-      setFormData({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-      setErrors({});
+      try {
+        // Create user with Firebase
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
 
-      // Navigate to personal details page
-      navigate('/personal-details');
+        // Dispatch success action
+        dispatch(registerSuccess({ 
+          username: formData.username, 
+          email: formData.email 
+        }));
+
+        setSuccessMessage('Sign-up successful!');
+        setFormData({
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+        setErrors({});
+        setApiError('');
+
+        // Navigate to personal details page
+        navigate('/personaldetails');
+      } catch (error) {
+        setApiError(error.message); // Set API error message
+      }
     }
   };
 
@@ -62,8 +80,10 @@ const Signup = () => {
     <div className="signup-container">
       <h2>Sign Up</h2>
       {successMessage && <div className="success-message">{successMessage}</div>}
+      {apiError && <div className="error-text">{apiError}</div>}
 
       <form onSubmit={handleSubmit} className="signup-form">
+        {/* Form Fields */}
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -113,8 +133,6 @@ const Signup = () => {
             <span className="error-text">{errors.confirmPassword}</span>
           )}
         </div>
-
-        {errors.apiError && <div className="error-text">{errors.apiError}</div>}
 
         <button type="submit" className="submit-btn">
           Sign Up

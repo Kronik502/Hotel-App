@@ -1,0 +1,11 @@
+/* Example styles for ManageRooms */
+h2 {
+    color: #333;
+  }
+  input {
+    margin: 5px 0;
+  }
+  button {
+    margin-top: 10px;
+  }
+  

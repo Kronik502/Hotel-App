@@ -1,0 +1,12 @@
+.admin-dashboard {
+    padding: 20px;
+  }
+  
+  .admin-dashboard nav ul {
+    list-style-type: none;
+  }
+  
+  .admin-dashboard nav ul li {
+    margin: 10px 0;
+  }
+  

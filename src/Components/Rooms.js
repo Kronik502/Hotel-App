@@ -1,4 +1,3 @@
-// src/components/Rooms.js
 import React, { useState } from 'react';
 import '../styles/Rooms.css'; // Ensure your styles are updated to include modal styling
 import standard from '../images/Standard.jpg';
@@ -22,13 +21,14 @@ function Rooms() {
     },
   });
 
+  // Update the `amenities` field to use an array format.
   const rooms = [
     {
       id: 1,
       name: "Standard Deluxe",
       type: "Standard Room",
       bedType: "Double Bed",
-      amenities: "TV, Local WiFi",
+      amenities: ["TV", "Local WiFi"], // Updated to use an array
       price: 1858.99,
       image: standard, // Use the imported image
     },
@@ -37,7 +37,7 @@ function Rooms() {
       name: "Business Meeting Deluxe",
       type: "Meeting Room",
       bedType: "N/A",
-      amenities: "TV, Local WiFi, 5 Wines",
+      amenities: ["TV", "Local WiFi", "5 Wines"], // Updated to use an array
       price: 3050.00,
       image: conference, // Use the imported image
     },
@@ -46,7 +46,7 @@ function Rooms() {
       name: "Queen Deluxe",
       type: "Queen's Room",
       bedType: "Queen's Bed",
-      amenities: "TV, Personal WiFi, 2-course meals",
+      amenities: ["TV", "Personal WiFi", "2-course meals"], // Updated to use an array
       price: 6058.00,
       image: queen, // Use the imported image
     },
@@ -161,13 +161,14 @@ function Rooms() {
               <p>Room Type: {room.type}</p>
               <p>Price: R{room.price.toFixed(2)} Per Night</p>
               <p>Bed Type: {room.bedType}</p>
-              <p>Amenities : {room.amenities}</p>
+              <p>Amenities: {room.amenities.join(', ')}</p> {/* Use .join for array amenities */}
             </div>
           </div>
         ))}
       </div>
 
       {selectedRoom && <RoomModal room={selectedRoom} onClose={closeModal} />}
+      <button className="view-more-btn1" onClick={() => alert('View More clicked!')}>View More</button>
     </section>
   );
 }

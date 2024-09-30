@@ -1,0 +1,165 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #a28759; /* Updated background for a consistent look */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Central container for login pages */
+  .container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  /* Form Containers */
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .auth-card {
+    background-color: #fff;
+    margin-left: 100px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.5s ease; /* Adding a slight animation */
+  }
+  
+  /* Heading Styles */
+  h2.auth-title {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Form Group Styles */
+  .input-group {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  /* Labels for inputs */
+  .input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+  }
+  
+  /* Input Fields */
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Input focus effect */
+  .input-group input:focus {
+    outline: none;
+    border-color: #007BFF;
+  }
+  
+  /* Error Styling */
+  .auth-error {
+    color: #f44336;
+    margin-top: 10px;
+  }
+  
+  /* Button Styling */
+  .auth-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .auth-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Button focus styling */
+  .auth-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Navigation Link Styles */
+  .auth-link-text {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .auth-link {
+    color: #007BFF;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .auth-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  /* Success Message */
+  .success-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .auth-card {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    h2.auth-title {
+      font-size: 1.5em;
+    }
+  }
+  
+  /* Animation for the login card */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

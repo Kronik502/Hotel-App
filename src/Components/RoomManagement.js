@@ -1,73 +1,48 @@
-// src/Components/RoomManagement.js
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addRoom, updateRoom, deleteRoom } from '../redux/slices/roomSlice';
+import '../styles/ManageRooms.css';
 
+const ManageRooms = () => {
+  const [rooms, setRooms] = useState([
+    // Sample room data
+    { id: 1, name: 'Standard Deluxe', price: 1858.99, type: 'Standard Room' },
+    { id: 2, name: 'Business Meeting Deluxe', price: 3050.00, type: 'Meeting Room' },
+  ]);
+  const [newRoom, setNewRoom] = useState({ name: '', price: '', type: '' });
 
-const RoomManagement = () => {
-  const dispatch = useDispatch();
-  const rooms = useSelector((state) => state.rooms.rooms);
-  
-  const [newRoom, setNewRoom] = useState({ id: '', name: '', price: '', available: true });
-  const [editMode, setEditMode] = useState(false);
-
-  const handleChange = (e) => {
-    setNewRoom({ ...newRoom, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editMode) {
-      dispatch(updateRoom(newRoom));
-    } else {
-      dispatch(addRoom(newRoom));
-    }
-    setNewRoom({ id: '', name: '', price: '', available: true });
-    setEditMode(false);
-  };
-
-  const handleEdit = (room) => {
-    setNewRoom(room);
-    setEditMode(true);
+  const handleAddRoom = () => {
+    setRooms([...rooms, { id: rooms.length + 1, ...newRoom }]);
+    setNewRoom({ name: '', price: '', type: '' }); // Reset form
   };
 
   return (
-    <div className="room-management">
-      <h2>Room Management</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="id"
-          value={newRoom.id}
-          onChange={handleChange}
-          placeholder="Room ID"
-          required
-        />
-        <input
-          type="text"
-          name="name"
-          value={newRoom.name}
-          onChange={handleChange}
-          placeholder="Room Name"
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          value={newRoom.price}
-          onChange={handleChange}
-          placeholder="Price"
-          required
-        />
-        <button type="submit">{editMode ? 'Update Room' : 'Add Room'}</button>
-      </form>
+    <div>
+      <h2>Manage Rooms</h2>
+      <h3>Add New Room</h3>
+      <input
+        type="text"
+        placeholder="Room Name"
+        value={newRoom.name}
+        onChange={(e) => setNewRoom({ ...newRoom, name: e.target.value })}
+      />
+      <input
+        type="number"
+        placeholder="Price"
+        value={newRoom.price}
+        onChange={(e) => setNewRoom({ ...newRoom, price: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Room Type"
+        value={newRoom.type}
+        onChange={(e) => setNewRoom({ ...newRoom, type: e.target.value })}
+      />
+      <button onClick={handleAddRoom}>Add Room</button>
 
+      <h3>Existing Rooms</h3>
       <ul>
-        {rooms.map((room) => (
+        {rooms.map(room => (
           <li key={room.id}>
-            {room.name} - ${room.price} - {room.available ? 'Available' : 'Booked'}
-            <button onClick={() => handleEdit(room)}>Edit</button>
-            <button onClick={() => dispatch(deleteRoom(room.id))}>Delete</button>
+            {room.name} - R{room.price.toFixed(2)} ({room.type})
           </li>
         ))}
       </ul>
@@ -75,4 +50,4 @@ const RoomManagement = () => {
   );
 };
 
-export default RoomManagement;
+export default ManageRooms;

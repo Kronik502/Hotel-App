@@ -1,42 +1,90 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    background-color: #333;
-  }
-  
-  .navbar-logo h1 {
-    color: #C08D02;
-    list-style: none;
-  }
-  .navbar-logo h2 {
-    color: #ffffff;
-    list-style: none;
   display: flex;
-  gap: 10px;
   justify-content: space-between;
-  margin-left: 90px;
-  margin-top: -53px;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-logo h1 {
+  color: #C08D02;
+  font-size: 24px; /* Adjust font size */
+}
+
+.navbar-logo h2 {
+  color: #ffffff;
+  font-size: 20px; /* Adjust font size */
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-links li a:hover {
+  color: #ff6347;
+}
+
+.navbar-links a.active {
+  color: #ff6347; /* Highlight color for active link */
+  text-decoration: underline;
+}
+
+/* User avatar styles */
+.user-avatar {
+  display: flex;
+  align-items: center; /* Center align avatar with text */
+  gap: 10px;
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Make the avatar circular */
+  border: 2px solid #C08D02; /* Optional border styling */
+}
+
+.user-info {
+  text-align: left; /* Align text to the left */
+}
+
+.user-info span {
+  display: block;
+  font-size: 14px;
+  color: #ffffff; /* Change text color for better visibility */
+}
+
+.error-message {
+  color: red; /* Style error messages */
+  margin-top: 10px; /* Add spacing above the error message */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Stack navbar items */
+    align-items: flex-start;
   }
-  
+
   .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+    flex-direction: column; /* Stack links vertically */
+    gap: 10px;
   }
-  
-  .navbar-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
+
+  .user-avatar {
+    flex-direction: column; /* Stack avatar and info */
   }
-  
-  .navbar-links li a:hover {
-    color: #ff6347;
-  }
-  .navbar-links a.active {
-    color: #ff6347; /* Highlight color for active link */
-    text-decoration: underline;
-  }
-  
+}

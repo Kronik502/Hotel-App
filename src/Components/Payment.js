@@ -1,69 +1,54 @@
-// src/PaymentPage.js
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAmount, setEmail, setError, setSuccess, clearState } from '../redux/slices/PaymentSlice';
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import '../styles/Payment.css';
+import Mastercard from '../images/Mastercard.png'; // Update image import
 
 const PaymentPage = () => {
-  const dispatch = useDispatch();
-  const { amount, email, error, success } = useSelector((state) => state.payment);
+  const location = useLocation();
+  const { room } = location.state || {};
 
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    dispatch(setError(''));
-    dispatch(setSuccess(''));
-
-    if (!amount || !email) {
-      dispatch(setError('Please fill in all fields.'));
-      return;
-    }
-
-    try {
-      // Replace with your payment gateway API URL
-      const response = await axios.post('https://your-payment-gateway-url', {
-        amount,
-        email,
-      });
-
-      if (response.data.status === 'success') {
-        dispatch(setSuccess('Payment successful!'));
-      } else {
-        dispatch(setError('Payment failed. Please try again.'));
-      }
-    } catch (err) {
-      dispatch(setError('An error occurred. Please try again later.'));
-      console.error(err);
-    }
-  };
+  if (!room) return <div>No room details available</div>;
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Payment Page</h1>
-      <form onSubmit={handlePayment}>
-        <div>
-          <label htmlFor="amount">Amount (ZAR)</label>
-          <input
-            type="number"
-            id="amount"
-            value={amount}
-            onChange={(e) => dispatch(setAmount(e.target.value))}
-            required
-          />
+    <div className="payment-container">
+      <h2>PAYMENT</h2>
+      <div className="payment-details">
+        <p><strong>{room.name}</strong></p>
+        <p><strong>Amenities:</strong></p>
+        <ul>
+          {room.amenities.map((amenity, index) => (
+            <li key={index}>{amenity}</li>
+          ))}
+        </ul>
+        <p><strong>Total Price: </strong>R {room.price.toFixed(2)}</p>
+      </div>
+
+      <form className="payment-form">
+        <div className="input-field">
+          <label htmlFor="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="Card Number" />
         </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => dispatch(setEmail(e.target.value))}
-            required
-          />
+        <div className="input-group">
+          <div className="input-field">
+            <label htmlFor="exp">Exp</label>
+            <input type="text" id="exp" placeholder="MM/YY" />
+          </div>
+          <div className="input-field">
+            <label htmlFor="cvc">CVC</label>
+            <input type="text" id="cvc" placeholder="CVC" />
+          </div>
         </div>
-        <button type="submit">Pay Now</button>
+        <div className="input-field">
+          <label htmlFor="account-holder">Account Holder</label>
+          <input type="text" id="account-holder" placeholder="Account Holder Name" />
+        </div>
+
+        <div className="payment-icons">
+          <img src={Mastercard} alt="MasterCard" /> {/* Use imported image */}
+        </div>
+
+        <button type="submit" className="pay-button">PAY R {room.price.toFixed(2)}</button>
       </form>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {success && <div style={{ color: 'green' }}>{success}</div>}
     </div>
   );
 };
