@@ -1,3 +1,5 @@
+/* src/styles/Rooms.css */
+
 .rooms-section {
   display: flex;
   flex-direction: column;
@@ -73,6 +75,7 @@
     width: 100%; /* Full width for images on smaller screens */
   }
 }
+
 button {
   padding: 10px 20px; /* Add padding for a better touch area */
   border: none; /* Remove default border */
@@ -94,6 +97,7 @@ button:focus {
   outline: none; /* Remove default outline on focus */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a shadow on focus for accessibility */
 }
+
 /* Modal styling */
 .filter-modal {
   position: fixed;
@@ -113,6 +117,7 @@ button:focus {
   border-radius: 10px;
   width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Match .room-card shadow */
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation for modal */
 }
 
 .filter-content h2 {

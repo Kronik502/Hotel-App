@@ -8,8 +8,8 @@ const AdminDashboard = () => {
       <h1>Admin Dashboard</h1>
       <nav>
         <ul>
-          <li><Link to="/admin/managerooms">Manage Rooms</Link></li>
-          <li><Link to="/admin/viewbookings">View Bookings</Link></li>
+          <li><Link to="/admin/rooms">Manage Rooms</Link></li>
+          <li><Link to="/booking/history">View Bookings</Link></li>
           <li><Link to="/admin/manageusers">Manage Users</Link></li>
         </ul>
       </nav>

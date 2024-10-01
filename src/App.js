@@ -13,6 +13,7 @@ import RoomManagement from './Components/RoomManagement';
 import PersonalDetails from "./Components/PersonalDetails";
 import RoomCard from "./Components/RoomCard";
 import PaymentPage from './Components/Payment';
+import ManageUsers from './Components/Usermanagement';
 import AdminLogin from './Components/Adminlogin'; // Import the new AdminLogin component
 import BookingHistory from './Components/Viewbookings'; // Booking history for users
 import UserProfile from './Components/UserProfile'; // User profile management
@@ -34,6 +35,7 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} /> {/* Admin login route */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/rooms" element={<RoomManagement />} />
+        <Route path ="/admin/manageusers" element={<ManageUsers/>}/>
         
         {/* User Management */}
         <Route path="/personaldetails" element={<PersonalDetails />} />
