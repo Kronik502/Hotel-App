@@ -1,3 +1,4 @@
+// src/Components/Footer.js
 import React, { useState } from 'react';
 import '../styles/Footer.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -47,6 +48,7 @@ function Footer() {
           <p className="ceo-title">CEO</p>
           <p className="ceo-name">Kgabo Kwenaite</p>
 
+         
         </div>
       </div>
 

@@ -1,90 +1,170 @@
+/* General Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #111, #333); /* Gradient background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Soft shadow for depth */
+  position: sticky; /* Sticks the navbar to the top */
+  top: 0;
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Logo Section */
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .navbar-logo h1 {
-  color: #C08D02;
-  font-size: 24px; /* Adjust font size */
+  color: #C08D02; /* Primary brand color */
+  font-size: 26px; /* Adjusted font size for prominence */
+  font-family: 'Montserrat', sans-serif; /* Professional font */
+  letter-spacing: 2px;
 }
 
 .navbar-logo h2 {
   color: #ffffff;
-  font-size: 20px; /* Adjust font size */
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 1px 1px 2px #444;
 }
 
+/* Navbar Links */
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
+}
+
+.navbar-links li {
+  position: relative;
 }
 
 .navbar-links li a {
-  color: #fff;
+  color: #ddd;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  padding: 5px;
+  transition: color 0.3s ease, transform 0.3s ease-in-out;
 }
 
 .navbar-links li a:hover {
-  color: #ff6347;
+  color: #ff6347; /* Elegant hover color */
+  transform: translateY(-3px); /* Subtle lift on hover */
+}
+
+/* Underline Animation */
+.navbar-links li a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background-color: #ff6347;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-links li a:hover::after {
+  visibility: visible;
+  transform: scaleX(1);
 }
 
 .navbar-links a.active {
-  color: #ff6347; /* Highlight color for active link */
-  text-decoration: underline;
+  color: #ff6347; /* Highlight active link */
+  text-decoration: none;
+  font-weight: 700;
 }
 
-/* User avatar styles */
+/* User Avatar Styles */
 .user-avatar {
   display: flex;
-  align-items: center; /* Center align avatar with text */
-  gap: 10px;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
 }
 
 .user-avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%; /* Make the avatar circular */
-  border: 2px solid #C08D02; /* Optional border styling */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* Circular avatar */
+  border: 3px solid #C08D02; /* Border with primary brand color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Avatar shadow */
 }
 
+/* User Info */
 .user-info {
-  text-align: left; /* Align text to the left */
+  text-align: left;
 }
 
 .user-info span {
   display: block;
   font-size: 14px;
-  color: #ffffff; /* Change text color for better visibility */
+  color: #ffffff;
+  font-weight: 500;
 }
 
+.user-info span.name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Error Message Styling */
 .error-message {
-  color: red; /* Style error messages */
-  margin-top: 10px; /* Add spacing above the error message */
+  color: #ff4c4c;
+  font-size: 14px;
+  background: #ffefef;
+  padding: 10px 15px;
+  border: 1px solid #ff4c4c;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
-/* Responsive adjustments */
+.error-message:hover {
+  background: #ffe0e0;
+}
+
+/* Responsive Adjustments */
 @media screen and (max-width: 768px) {
   .navbar {
-    flex-direction: column; /* Stack navbar items */
+    flex-direction: column;
     align-items: flex-start;
+    padding: 15px;
   }
 
   .navbar-links {
-    flex-direction: column; /* Stack links vertically */
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .navbar-links li a {
+    font-size: 18px;
   }
 
   .user-avatar {
-    flex-direction: column; /* Stack avatar and info */
+    flex-direction: column;
+    gap: 5px;
   }
 }

@@ -1,60 +1,131 @@
 .manage-rooms-container {
-  max-width: 800px;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 30px;
+  background-color: #f8f9fa; /* Light background */
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
   color: #333;
+  font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+  color: #555;
+  margin: 20px 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .room-form {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .form-input {
-  flex: 1;
+  flex: 1 1 200px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ced4da; /* Consistent border color */
   border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #80bdff; /* Border color on focus */
+  outline: none;
 }
 
 .add-room-btn {
   padding: 10px 15px;
-  background-color: #28a745;
+  background-color: #28a745; /* Green button */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .add-room-btn:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker green on hover */
 }
 
 .room-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 .room-table th, .room-table td {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #dee2e6; /* Consistent border color */
 }
 
 .room-table th {
-  background-color: #007bff;
+  background-color: #007bff; /* Blue header */
   color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
 .error-message {
-  color: red;
+  color: #dc3545; /* Red for errors */
   margin-bottom: 10px;
+}
+
+.availability-btn {
+  padding: 5px 10px;
+  background-color: #ffc107; /* Yellow for availability */
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.availability-btn:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
+
+.delete-room-btn {
+  padding: 5px 10px;
+  background-color: #dc3545; /* Red for delete */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-room-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.edit-room-btn {
+  padding: 5px 10px;
+  background-color: #007bff; /* Blue for edit */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-room-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .room-form {
+    flex-direction: column;
+  }
+
+  .form-input {
+    flex: 1 1 100%; /* Full width on smaller screens */
+  }
 }
