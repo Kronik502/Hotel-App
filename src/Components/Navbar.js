@@ -10,6 +10,7 @@ function Navbar() {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({}); // To store user data from Firestore
   const [error, setError] = useState(null); // Error handling
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -41,6 +42,15 @@ function Navbar() {
     }
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(prev => !prev);
+  };
+
+  const handleViewProfile = () => {
+    // Redirect to profile page or handle view profile action
+    console.log("View Profile clicked");
+  };
+
   if (loading) return <div>Loading...</div>; // Loading state
 
   return (
@@ -54,23 +64,22 @@ function Navbar() {
         <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
         {user ? (
           <>
-            <li className="user-avatar">
-              {/* Use the Firestore avatar URL instead of the default one */}
+            <li className="user-avatar" onClick={toggleDropdown}>
               <img 
                 src={userData.avatar || "/path/to/default-avatar.png"} 
                 alt="User Avatar" 
                 aria-label="User Avatar"
               />
-              {/* Display user name and surname */}
               <div className="user-info">
                 <span>{userData.fullNames || "Full Name"}</span>
                 <span>{userData.surname || "Surname"}</span>
               </div>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="logout-btn" aria-label="Logout">
-                Logout
-              </button>
+              {dropdownOpen && (
+                <div className="dropdown-menu">
+                  <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
+                  <button onClick={handleLogout} className="dropdown-item">Logout</button>
+                </div>
+              )}
             </li>
           </>
         ) : (

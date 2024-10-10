@@ -14,14 +14,16 @@ import PersonalDetails from "./Components/PersonalDetails";
 import RoomCard from "./Components/RoomCard";
 import PaymentPage from './Components/Payment';
 import ManageUsers from './Components/Usermanagement';
-import AdminLogin from './Components/Adminlogin'; // Import the new AdminLogin component
-import BookingHistory from './Components/Viewbookings'; // Booking history for users
-import UserProfile from './Components/UserProfile'; // User profile management
+import AdminLogin from './Components/Adminlogin';
+import BookingHistory from './Components/Viewbookings';
+import UserProfile from './Components/UserProfile';
 import './App.css';
+import BookingConfirmation from './Components/Confirmation';
+import { BookingProvider } from './Components/BookingContext'; 
 
 function App() {
   return (
-    <>
+    <BookingProvider>
       <Navbar />
       <Routes>
         <Route path="/" element={<Hero />} />
@@ -32,25 +34,26 @@ function App() {
         <Route path="/room/:id" element={<RoomDetails />} />
         
         {/* Admin Routes */}
-        <Route path="/adminlogin" element={<AdminLogin />} /> {/* Admin login route */}
+        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/rooms" element={<RoomManagement />} />
-        <Route path ="/admin/manageusers" element={<ManageUsers/>}/>
+        <Route path="/admin/manageusers" element={<ManageUsers />} />
         
         {/* User Management */}
         <Route path="/personaldetails" element={<PersonalDetails />} />
-        <Route path="/user/profile" element={<UserProfile />} /> {/* User profile */}
-        <Route path="/booking/history" element={<BookingHistory />} /> {/* User booking history */}
+        <Route path="/user/profile" element={<UserProfile />} />
+        <Route path="/booking/history" element={<BookingHistory />} />
 
         {/* Other routes */}
         <Route path="/roomcard" element={<RoomCard />} />
         <Route path="/paymentpage" element={<PaymentPage />} />
+        <Route path="/bookingconfirmation/:roomId" element={<BookingConfirmation />} />
 
         {/* Catch-all route */}
         <Route path="/userprofile" element={<UserProfile />} /> 
       </Routes>
       <Footer />
-    </>
+    </BookingProvider>
   );
 }
 

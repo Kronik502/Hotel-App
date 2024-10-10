@@ -2,23 +2,26 @@
 
 /* General Styles */
 .rooms-section {
-    padding: 40px;
-    background-color: #f0f4f8;
+    padding: 50px;
+    background: linear-gradient(to bottom right, #f0f4f8, #e0e7ee);
+    position: relative;
 }
 
 /* Filter Button */
 .Filter {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-bottom: 20px;
 }
 
 .Filter:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 /* Modal Styles */
@@ -28,7 +31,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,19 +40,21 @@
 
 .filter-content {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    animation: slideIn 0.5s ease;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease;
 }
 
-@keyframes slideIn {
+/* Keyframe Animations */
+@keyframes fadeIn {
     from {
-        transform: translateY(-50px);
         opacity: 0;
+        transform: translateY(-20px);
     }
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -57,42 +62,95 @@
 .room-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
+    padding: 20px;
 }
 
+/* Unique Room Card Style */
 .room-card {
     background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     width: 300px;
-    transition: transform 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    position: relative;
 }
 
 .room-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
+/* Room Card Image */
 .room-card img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover img {
+    transform: scale(1.1); /* Subtle zoom effect on hover */
 }
 
 /* Room Info */
 .room-info {
     padding: 15px;
+    transition: color 0.3s;
 }
 
 .room-info h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: #333;
 }
 
 .room-info p {
     margin: 5px 0;
+    color: #555; /* Softer text color */
+}
+
+/* Filter Modal Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+select, input[type="number"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: #007bff; /* Highlight border on focus */
+}
+
+/* Modal Buttons */
+.apply-filters, .close-modal {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.apply-filters:hover, .close-modal:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
 }
 
 /* Footer Button */
@@ -104,25 +162,27 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .view-more-btn1:hover {
     background-color: #218838;
+    transform: translateY(-2px);
 }
 
-/* Close Button in Modal */
-.close-modal, .apply-filters {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .room-cards {
+        flex-direction: column;
+        align-items: center;
+    }
 
-.close-modal:hover, .apply-filters:hover {
-    background-color: #c82333;
+    .room-card {
+        width: 90%; /* Full width on smaller screens */
+    }
+
+    .filter-content {
+        width: 90%; /* Modal full width on small screens */
+        max-width: 500px; /* Limit max width */
+    }
 }
