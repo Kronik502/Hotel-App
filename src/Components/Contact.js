@@ -1,13 +1,13 @@
-// src/Components/Contact.js
 import React, { useState } from 'react';
-import '../styles/Contact.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Contact() {
+function Contact({ onClose }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,51 +17,64 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (send data to backend or display success message)
-    alert('Message sent successfully!');
+    setError('');
+
+    try {
+      alert('Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+      onClose();
+    } catch (err) {
+      setError('Failed to send message. Please try again later.');
+    }
   };
 
   return (
-    <div className="contact-page">
-      <h1>Contact Us</h1>
-      <p>If you have any questions, feel free to reach out to us. We'd love to hear from you!</p>
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Your Name"
-          required
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Your Email"
-          required
-        />
-
-        <label htmlFor="message">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Your Message"
-          required
-        ></textarea>
-
-        <button type="submit" className="contact-submit-btn">Send Message</button>
-      </form>
+    <div className="modal fade show" style={{ display: 'block' }}>
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header bg-info text-white">
+            <h5 className="modal-title">Contact Us</h5>
+            <button type="button" className="close text-white" onClick={onClose}>
+              <span>&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            {error && <div className="alert alert-danger">{error}</div>}
+            <form onSubmit={handleSubmit}>
+              {['name', 'email', 'message'].map((field, index) => (
+                <div className="form-group" key={index}>
+                  <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                  {field === 'message' ? (
+                    <textarea
+                      className="form-control"
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleChange}
+                      placeholder={`Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}
+                      required
+                    />
+                  ) : (
+                    <input
+                      type={field === 'email' ? 'email' : 'text'}
+                      className="form-control"
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleChange}
+                      placeholder={`Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}
+                      required
+                    />
+                  )}
+                </div>
+              ))}
+              <button type="submit" className="btn btn-info">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

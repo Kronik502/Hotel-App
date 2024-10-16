@@ -1,128 +1,44 @@
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  background-color: #a28759;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    margin: 0 auto;
-  }
-  
-  /* Form Container */
-  .signup-container, .login-container {
-    background-color: #a28759;
-    margin-left: 100px;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  /* Headings */
-  h2 {
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    color: #333;
-  }
-  
-  /* Form Styles */
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Form Group */
-  .form-group {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  /* Labels */
-  .form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-    color: #333;
-  }
-  
-  /* Input Fields */
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    transition: border-color 0.3s ease;
-  }
-  
-  /* Highlight on focus */
-  .form-group input:focus {
-    outline: none;
-    border-color: #007BFF;
-  }
-  
-  /* Error Styling */
-  .error {
-    border-color: #f44336; /* Red border for errors */
-  }
-  
-  .error-text {
-    color: #f44336;
-    font-size: 0.875em;
-    margin-top: 5px;
-  }
-  
-  /* Success Message */
-  .success-message, .login-message {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-  }
-  
-  /* Button Styling */
-  button.submit-btn {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  button.submit-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  /* Button focus */
-  button.submit-btn:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .signup-container, .login-container {
-      width: 90%;
-      padding: 20px;
-    }
-  
-    h2 {
-      font-size: 1.5em;
-    }
-  }
-  
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 15px;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.9em;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
