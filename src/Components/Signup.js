@@ -3,12 +3,16 @@ import { useDispatch } from 'react-redux';
 import { registerSuccess } from '../redux/slices/userSlice';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../firebase'; // Import Firestore instance
+import { setDoc, doc } from 'firebase/firestore'; // Import Firestore methods
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/Signup.css'; // Import your custom CSS
 
 const SignupModal = ({ onClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -27,7 +31,6 @@ const SignupModal = ({ onClose }) => {
 
   const validate = () => {
     const errors = {};
-    if (!formData.username) errors.username = 'Username is required';
     if (!formData.email) errors.email = 'Email is required';
     if (!formData.password) errors.password = 'Password is required';
     if (formData.password !== formData.confirmPassword) {
@@ -43,10 +46,25 @@ const SignupModal = ({ onClose }) => {
       setErrors(validationErrors);
     } else {
       try {
-        await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-        dispatch(registerSuccess({ username: formData.username, email: formData.email }));
+        // Create user with Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        
+        // Get user UID
+        const userId = userCredential.user.uid;
+
+        // Save user details in Firestore
+        await setDoc(doc(db, 'users', userId), {
+          emailAddress: formData.email,
+          fullNames: formData.email.split('@')[0], // You can modify this as needed
+          role: 'User', // Default role
+          status: 'Active', // Default status
+          createdAt: new Date(),
+        });
+
+        dispatch(registerSuccess({ username: formData.email, email: formData.email }));
         setSuccessMessage('Sign-up successful!');
         onClose();
+        navigate('/personaldetails');
       } catch (error) {
         setApiError(error.message);
       }
@@ -67,8 +85,7 @@ const SignupModal = ({ onClose }) => {
             {successMessage && <div className="alert alert-success">{successMessage}</div>}
             {apiError && <div className="alert alert-danger">{apiError}</div>}
             <form onSubmit={handleSubmit}>
-              {/* Form Fields */}
-              {['username', 'email', 'password', 'confirmPassword'].map((field, index) => (
+              {['email', 'password', 'confirmPassword'].map((field, index) => (
                 <div className="form-group" key={index}>
                   <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
                   <input
@@ -82,8 +99,8 @@ const SignupModal = ({ onClose }) => {
                   {errors[field] && <div className="invalid-feedback">{errors[field]}</div>}
                 </div>
               ))}
-              <button type="submit" className="btn btn-primary">Sign Up</button>
-              <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>
+              <button type="submit" className="btn btn-primary px-4 py-2 mr-2">Sign Up</button>
+              <button type="button" className="btn btn-secondary px-4 py-2" onClick={onClose}>Close</button>
             </form>
           </div>
         </div>

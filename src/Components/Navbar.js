@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth, db } from '../firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from 'firebase/firestore';
 import '../styles/Navbar.css';
+
+const DEFAULT_AVATAR = "/path/to/default-avatar.png";
 
 function Navbar({ onOpenContact, onOpenLogin, onOpenSignup }) {
   const [user, setUser] = useState(null);
@@ -13,10 +15,12 @@ function Navbar({ onOpenContact, onOpenLogin, onOpenSignup }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      console.log("Current User:", currentUser);
       setUser(currentUser);
       if (currentUser) {
         try {
           const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+          console.log("User Document:", userDoc.data());
           if (userDoc.exists()) {
             setUserData(userDoc.data());
           } else {
@@ -45,7 +49,7 @@ function Navbar({ onOpenContact, onOpenLogin, onOpenSignup }) {
     setDropdownOpen(prev => !prev);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <nav className="navbar">
@@ -61,10 +65,10 @@ function Navbar({ onOpenContact, onOpenLogin, onOpenSignup }) {
         {user ? (
           <li className="user-avatar" onClick={toggleDropdown}>
             <img 
-              src={userData.avatar || "/path/to/default-avatar.png"} 
+              src={userData.avatar || DEFAULT_AVATAR} 
               alt="User Avatar" 
               aria-label="User Avatar"
-              onError={(e) => { e.target.onerror = null; e.target.src = "/path/to/default-avatar.png"; }} // Fallback for broken images
+              onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR; }}
             />
             <div className="user-info">
               <span>{userData.fullNames || "Full Name"}</span>

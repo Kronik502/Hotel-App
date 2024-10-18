@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase'; // Import your Firebase auth instance
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = ({ onClose }) => {
@@ -8,22 +12,36 @@ const Login = ({ onClose }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const users = [
-    { username: 'admin@example.com', password: 'admin123', role: 'admin' },
-    { username: 'user1', password: 'user123', role: 'user' },
-  ];
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = users.find((u) => u.username === username && u.password === password);
+    setError('');
 
-    if (user) {
-      localStorage.setItem('userRole', user.role);
-      navigate(user.role === 'admin' ? '/admin' : '/');
-      onClose();
-    } else {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, username, password);
+      const user = userCredential.user;
+
+      // Fetch user data from Firestore
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        localStorage.setItem('userEmail', userData.emailAddress); // Save email or other user data if needed
+        localStorage.setItem('userRole', 'user'); // Adjust based on your role logic
+        console.log("User logged in:", userData);
+
+        navigate('/'); // Redirect to home or specific route based on user role
+        onClose();
+      } else {
+        setError('User data not found.');
+      }
+    } catch (error) {
       setError('Invalid credentials. Please try again.');
+      console.error("Login error:", error);
     }
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    setter(e.target.value);
+    if (error) setError('');
   };
 
   return (
@@ -39,12 +57,12 @@ const Login = ({ onClose }) => {
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Username</label>
+                <label>Username (Email)</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={handleInputChange(setUsername)}
                   required
                 />
               </div>
@@ -54,11 +72,11 @@ const Login = ({ onClose }) => {
                   type="password"
                   className="form-control"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleInputChange(setPassword)}
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-success">Login</button>
+              <button type="submit" className="btn btn-success mb-2">Login</button>
               {error && <p className="text-danger">{error}</p>}
             </form>
             <hr />

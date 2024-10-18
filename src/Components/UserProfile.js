@@ -1,4 +1,3 @@
-// src/Components/UserProfile.js
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -6,24 +5,32 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    fullNames: '',
+    surname: '',
+    idNumber: '',
+    cellphoneNumber: '',
+    residentialAddress: '',
+    dependantFullNames: '',
+    emailAddress: '',
+    cellNumber: '',
+    residentialAddressLine2: '',
+    residentialAddressLine3: '',
     avatar: '',
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const [file, setFile] = useState(null); // To store the selected file
+  const [file, setFile] = useState(null);
 
-  const userEmail = localStorage.getItem('userEmail'); // Assuming you store user email on login
+  const userEmail = localStorage.getItem('userEmail');
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userDoc = doc(db, 'users', userEmail); // Assuming user email is used as document ID
+        const userDoc = doc(db, 'users', userEmail);
         const docSnap = await getDoc(userDoc);
-        
+
         if (docSnap.exists()) {
           setUserData(docSnap.data());
         } else {
@@ -53,22 +60,25 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccessMessage('');
+
     try {
-      // Upload avatar to Firebase Storage
+      let updatedUserData = { ...userData };
+
       if (file) {
         const storage = getStorage();
-        const avatarRef = ref(storage, `avatars/${userEmail}`); // Use email as the filename
+        const avatarRef = ref(storage, `avatars/${userEmail}`);
         await uploadBytes(avatarRef, file);
-
-        // Get the download URL
         const avatarURL = await getDownloadURL(avatarRef);
-        userData.avatar = avatarURL; // Add avatar URL to userData
+        updatedUserData.avatar = avatarURL;
       }
 
-      // Update user data in Firestore
       const userDoc = doc(db, 'users', userEmail);
-      await updateDoc(userDoc, userData);
+      await updateDoc(userDoc, updatedUserData);
+      setSuccessMessage('Profile updated successfully!');
       setIsEditing(false);
+      setFile(null); // Clear file input after save
     } catch (err) {
       setError('Error updating user data.');
       console.error(err);
@@ -76,45 +86,26 @@ const UserProfile = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="error-text">{error}</p>;
 
   return (
     <div>
       <h2>User Profile</h2>
+      {successMessage && <p className="success-text">{successMessage}</p>}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={userData.name}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-        </div>
-        <div>
-          <label>Phone:</label>
-          <input
-            type="tel"
-            name="phone"
-            value={userData.phone}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-        </div>
+        {Object.entries(userData).map(([key, value]) => (
+          <div key={key}>
+            <label>{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</label>
+            <input
+              type={key === 'emailAddress' ? 'email' : 'text'}
+              name={key}
+              value={value}
+              onChange={handleChange}
+              disabled={key === 'emailAddress' || !isEditing}
+              required={key !== 'dependantFullNames'} // Make dependant optional
+            />
+          </div>
+        ))}
         <div>
           <label>Avatar:</label>
           <input
@@ -131,12 +122,17 @@ const UserProfile = () => {
             />
           )}
         </div>
-        {isEditing ? (
-          <button type="submit">Save</button>
-        ) : (
-          <button type="button" onClick={() => setIsEditing(true)}>Edit</button>
+        <button type="submit">{isEditing ? 'Save' : 'Edit'}</button>
+        {isEditing && (
+          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
         )}
       </form>
+      {!isEditing && (
+        <button type="button" onClick={() => {
+          setIsEditing(true);
+          setSuccessMessage(''); // Clear success message when editing
+        }}>Edit</button>
+      )}
     </div>
   );
 };

@@ -1,8 +1,8 @@
-// src/firebase.js
-
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { initializeFirestore } from 'firebase/firestore';
+import { getFirestore, initializeFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage'; // Import Firebase Storage
+
 
 // Your web app's Firebase configuration (replace with your config object)
 const firebaseConfig = {
@@ -22,6 +22,8 @@ const auth = getAuth(app); // Firebase Auth
 const db = initializeFirestore(app, {
   persistence: true // Enable offline persistence
 });
+const storage = getStorage(app); // Initialize Firebase Storage
+
 
 // Export the services for use in other parts of your app
-export { app, auth, db };
+export { app, auth, db, storage };
