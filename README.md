@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+🏨 Hotel Booking App
+A modern hotel booking web application built with ReactJS and Firebase, allowing users to browse rooms, make bookings, and manage their reservations.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 Features
+🔐 User authentication (Sign up / Log in)
 
-## Available Scripts
+🛏️ Browse available rooms with images, types, and prices
 
-In the project directory, you can run:
+📝 Fill in personal details for booking
 
-### `npm start`
+💳 Secure payment form with input masking
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+✅ Booking confirmation page with room, user, and payment details
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+📦 Admin dashboard to manage rooms (Add, Edit, Delete)
 
-### `npm test`
+📱 Responsive design for mobile and desktop
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🛠️ Tech Stack
+Frontend: ReactJS, React Router, CSS
 
-### `npm run build`
+Backend/Database: Firebase (Firestore & Auth)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Styling: Custom CSS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Icons & Images: Custom assets and placeholders
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+📂 Project Structure
 
-### `npm run eject`
+src/
+│
+├── Components/
+│   ├── Rooms.js
+│   ├── RoomDetails.js
+│   ├── PaymentPage.js
+│   ├── BookingConfirmation.js
+│   ├── AdminDashboard.js
+│   └── ...
+│
+├── context/
+│   └── BookingContext.js
+│
+├── styles/
+│   └── *.css
+│
+├── App.js
+├── firebase.js
+└── index.js
+🔧 Installation
+Clone the repo:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+git clone https://github.com/yourusername/hotel-booking-app.git
+cd hotel-booking-app
+Install dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm install
+Set up Firebase:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Create a Firebase project at https://console.firebase.google.com
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Enable Firestore and Authentication
 
-## Learn More
+Replace the config in firebase.js with your project’s credentials
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run the app:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm start
+📸 Screenshots
+![image](https://github.com/user-attachments/assets/a2c81545-0713-4e2e-a9f0-c707a372c362)
+![image](https://github.com/user-attachments/assets/70dab734-1369-446d-8ab1-44387ff66f01)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+📌 Future Enhancements
+✅ Room availability calendar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+🧾 Email confirmation on booking
 
-### Making a Progressive Web App
+📈 Admin analytics dashboard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🌐 Multi-language support
 
-### Advanced Configuration
+🧑‍💻 Author
+Kgabo Kwenaite
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Passionate about building cool and useful web apps.
+Feel free to reach out or contribute!
